@@ -7,17 +7,17 @@ This guide walks you through:
 * Installing APIcast (docker) using RHSSO_ENDPOINT environment variable
 * Creating a new service in 3scale
 * Creating a new Application in 3scale
-* Creating a new client in Keycloak and copy client creds from 3scale
+* Creating a new client in RHSSO and copy client creds from 3scale
 * Flow testing
 
 ## Installing RHSSO
 
 Refer Kavitha's [instructions](https://github.com/kasriniv/openshiftv3-ops-workshop/blob/master/3scale/RHSSOInstall.md) on how to install RHSSO
 
-## Installing keycloak (Optional - if rhsso doesn't work)
+## Installing RHSSO (Optional - if rhsso doesn't work)
 
 In this example, keylcoak will be exposed on 3000
-`docker run -d -e KEYCLOAK_USER=admin -e KEYCLOAK_PASSWORD=admin -p 3000:8080  jboss/keycloak`
+`docker run -d -e RHSSO_USER=admin -e RHSSO_PASSWORD=admin -p 3000:8080  jboss/keycloak`
 
 
 ## Installing APIcast
@@ -55,8 +55,8 @@ For this example, we are going to manually create an applicate in the admin port
 * Now you will have an application with a `Client ID` and `Client Secret`. Take note of these as we will need to sync these later.
 ![details](https://d26dzxoao6i3hh.cloudfront.net/items/1u0V3B3K0A0A3I473j1q/%5Bae9760cac9f6603814ea481059f9db46%5D_Screen%2520Shot%25202017-07-21%2520at%252011.08.47.png)
 
-## Creating client in Keycloak
-To sync the credentials between Keycloak and 3scale we need to create a new client in Keycloak. To start we need to create an initial access token so we can register a new client. 
+## Creating client in RHSSO
+To sync the credentials between RHSSO and 3scale we need to create a new client in RHSSO. To start we need to create an initial access token so we can register a new client. 
 
 You can do this by selecting your realm and following `Realm Settings > Client Registration > Initial Access Tokens > Create`
 
@@ -67,8 +67,8 @@ Once you have the required token you need to run the below cURL command adding t
 * Client ID (from 3scale)
 * Client Secret (from 3scale)
 * Access Token (from above)
-* Keycloak host & port
-* Keycloak realm (Default is `master`)
+* RHSSO host & port
+* RHSSO realm (Default is `master`)
 
 ```
 curl -X POST \
@@ -77,7 +77,7 @@ curl -X POST \
     -H "Authorization: bearer {ACCESS TOKEN}" \
     http://{RHSSO HOST}:{RHSSO HOST}/auth/realms/{REALM}/clients-registrations/default
 ```
-Once the client is created you will need to further configure it to allow client credentials. To do this in Keycloak select Clients > {new client} and configure the below settings:
+Once the client is created you will need to further configure it to allow client credentials. To do this in RHSSO select Clients > {new client} and configure the below settings:
 
 * Enabled = ON
 * Access Type = confidential
