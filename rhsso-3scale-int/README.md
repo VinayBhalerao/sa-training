@@ -122,10 +122,12 @@ X-Powered-By: Undertow/1```
 ### Sample Call using Token
 Using the token it is now possible to send a request to the protected resource.
 
-``` curl -X GET \
+```
+curl -X GET \
     -H 'accept-charset: UTF-8' \
     -H 'authorization: Bearer {ACCESS TOKEN}' \
     -H 'cache-control: no-cache' \
-    http://{APIcast HOST}:{APIcast PORT} /{PATH}```
+    http://{APIcast HOST}:{APIcast PORT} /{PATH}
+```
 
 
