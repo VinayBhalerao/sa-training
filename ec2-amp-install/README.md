@@ -53,7 +53,7 @@ rm -rf oc.tar.gz
 ### Start the cluster
 
 ```
-oc cluster up --public-hostname=<PUBLIC_DNS> --routing-suffix=<PUBLIC_IP>.xip.io
+oc cluster up --public-hostname=<PUBLIC_DNS> --routing-suffix=<PUBLIC_IP>.xip.io --version=latest --host-data-dir=/home/ec2-user/myoccluster1
 ```
 
 Check out the console:
